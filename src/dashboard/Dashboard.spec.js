@@ -30,4 +30,18 @@ test ('Dashboard renders Controls Component', () => {
     getByText(/^close gate$/i);
 })
 
+test ('Dashboard defaults to unlocked and open', () => {
+
+   const { queryByText } = render(<Dashboard />)
+
+   const unlockedState = queryByText(/^unlocked$/i)
+   const openState = queryByText(/^open$/i)
+   expect(unlockedState).not.toBeNull();;
+   expect(openState).not.toBeNull();
+//the default must be unlocked and open if Dashboard renders unlocked and open but not locked and closed
+    const lockedState = queryByText(/^locked$/i)
+    const closedState = queryByText(/^closed$/i)
+    expect(lockedState).toBeNull();;
+    expect(closedState).toBeNull();
+})
 
