@@ -7,7 +7,7 @@ import 'jest-dom/extend-expect';
 import Display from './Display';
 
 test ('Display renders successfully', () => {
-    expect(render(<Display />)).toMatchSnapshot();
+    render(<Display />);
 })
 
 // - displays if gate is open/closed and if it is locked/unlocked
@@ -22,7 +22,6 @@ test ('Displays if gate is open/unlocked and if it is closed/locked', () => {
     rerender (<Display closed={true} locked={true} /> )
     getByText(/^closed$/i)
     getByText(/^locked$/i)
-
 })
 
 // - when `locked` or `closed` use the `red-led` class
@@ -41,7 +40,6 @@ test ('Red class when locked or closed and green class if unlocked or open', () 
 
     const open = getByText(/^open$/i);
     expect(open).toHaveClass('green-led');
-    
 })
 
 

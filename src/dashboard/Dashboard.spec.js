@@ -5,7 +5,7 @@ import { render } from '@testing-library/react';
 import Dashboard from './Dashboard';
 
 test ('Dashboard renders successfully', () => {
-    expect(render(<Dashboard />)).toMatchSnapshot();
+    render(<Dashboard />);
 })
 
 test ('Dashboard renders Display Component', () => {
