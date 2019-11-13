@@ -1,1 +1,47 @@
 // Test away
+import React from 'react';
+import { render } from '@testing-library/react';
+
+import Dashboard from './Dashboard';
+
+test ('Dashboard renders successfully', () => {
+    render(<Dashboard />);
+})
+
+test ('Dashboard renders Display Component', () => {
+
+    const { getByText } = render(<Dashboard />)
+
+ //note Display cannot contain text 'locked' or 'closed' because default state is 'false' and 'false'
+ //I tested this by changing the default state for locked and closed to true and then it would getByText unlocked & closed
+ //I also check to make sure this test passed when the Controls component was commented out
+ //& when both Display & Controls were commented out and it failed
+    getByText(/^unlocked$/i);
+    getByText(/^open$/i);
+//also the default must be unlocked and open as this test fails when attempting to find text locked or closed
+})
+
+//the logic about the default values of locked and closed being false also applies here
+test ('Dashboard renders Controls Component', () => {
+
+    const { getByText } = render(<Dashboard />)
+
+    getByText(/^lock gate$/i);
+    getByText(/^close gate$/i);
+})
+
+test ('Dashboard defaults to unlocked and open', () => {
+
+   const { queryByText } = render(<Dashboard />)
+
+   const unlockedState = queryByText(/^unlocked$/i)
+   const openState = queryByText(/^open$/i)
+   expect(unlockedState).not.toBeNull();;
+   expect(openState).not.toBeNull();
+//the default must be unlocked and open if Dashboard renders unlocked and open but not locked and closed
+    const lockedState = queryByText(/^locked$/i)
+    const closedState = queryByText(/^closed$/i)
+    expect(lockedState).toBeNull();;
+    expect(closedState).toBeNull();
+})
+
